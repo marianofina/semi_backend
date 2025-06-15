@@ -10,7 +10,6 @@ router = APIRouter()
 
 @router.post("/", response_model=PreferenciaMostrar)
 def crear_preferencia(preferencia: PreferenciaBase, db: Session = Depends(get_db), user_id: int = Depends(obtener_usuario_desde_cookie)):
-    print(user_id)
     return crud.crear_preferencia(db, user_id, preferencia.tematica_id, preferencia.interesa)
 
 

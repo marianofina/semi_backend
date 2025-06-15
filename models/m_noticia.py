@@ -13,4 +13,4 @@ class Noticia(Base):
     fecha_publicacion = Column(DateTime, default=datetime.utcnow)
     portal_id = Column(Integer, ForeignKey("portales_noticia.id"))
     tematica_id = Column(Integer, ForeignKey("tematica_noticias.id"))
-    autor_id = Column(String(100))
+    autor = Column(String(100))

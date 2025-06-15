@@ -2,6 +2,7 @@ from sqlalchemy.orm import Session
 from models.m_noticia import Noticia
 from schemas.s_noticia import NoticiaCreate
 from crud.c_preferencia import listar_preferencias
+from crud.c_port_bloq import obtener_portales_bloq
 
 
 def crear_noticia(db: Session, noticia: NoticiaCreate):
@@ -11,7 +12,7 @@ def crear_noticia(db: Session, noticia: NoticiaCreate):
         resumen=noticia.resumen,
         portal_id=noticia.portal_id,
         tematica_id=noticia.tematica_id,
-        autor_id=noticia.autor_id
+        autor=noticia.autor
     )
     db.add(db_noticia)
     db.commit()
@@ -28,10 +29,20 @@ def obtener_noticia(db: Session, noticia_id: int):
 
 
 def obtener_noticias_por_usuario(db: Session, user_id: int):
-    preferencias = listar_preferencias(db, user_id)  # lista de Preferencia
-    tematicas = [p.tematica_id for p in preferencias]  # extraemos solo los IDs de tematica
+    preferencias = listar_preferencias(db, user_id) or []
+    tematicas = [p.tematica_id for p in preferencias]
 
-    if not tematicas:
-        return []  # si no tiene preferencias, no traemos nada
+    portales_bloqueados = obtener_portales_bloq(db, user_id) or []
+    portales_bloq_ids = [pb.portal_id for pb in portales_bloqueados]
 
-    return db.query(Noticia).filter(Noticia.tematica_id.in_(tematicas), Noticia.resumen.isnot(None)).all()
+    query = db.query(Noticia)
+
+    if tematicas:
+        query = query.filter(Noticia.tematica_id.in_(tematicas))
+    if portales_bloq_ids:
+        query = query.filter(Noticia.portal_id.notin_(portales_bloq_ids))
+
+    query = query.filter(Noticia.resumen.isnot(None))
+
+    return query.all()
+

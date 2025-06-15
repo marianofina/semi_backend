@@ -9,7 +9,7 @@ class NoticiaBase(BaseModel):
     resumen: Optional[str]
     portal_id: int
     tematica_id: int
-    autor_id: Optional[int]
+    autor: Optional[str]
 
 
 class NoticiaCreate(NoticiaBase):
