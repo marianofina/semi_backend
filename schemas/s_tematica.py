@@ -5,12 +5,12 @@ class TematicaBase(BaseModel):
     nombre: str
 
 
-class TematicaCreate(TematicaBase):
-    pass
-
-
 class Tematica(TematicaBase):
     id: int
 
     class Config:
-        orm_mode = True
+        from_attributes = True
+
+
+class TematicaCreate(TematicaBase):
+    pass

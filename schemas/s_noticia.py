@@ -11,9 +11,32 @@ class NoticiaBase(BaseModel):
     tematica_id: int
     autor: Optional[str]
 
+    class Config:
+        from_attributes = True
+
 
 class NoticiaCreate(NoticiaBase):
     pass
+
+
+class NoticiaView(BaseModel):
+    id: int
+    titulo: str
+    resumen: str
+    fecha_publicacion: datetime
+    url_original: Optional[str]
+    portal_id: int
+    portal_nombre: str
+    tematica_id: int
+    tematica_nombre: str
+    autor: Optional[str]  # Puede venir NULL
+    interaccion_id: Optional[int]  # LEFT JOIN → puede ser None
+    fecha_leido: Optional[datetime]
+    utilidad: Optional[int]
+    resumen_claro: Optional[int]
+
+    class Config:
+        from_attributes = True  # Pydantic v2 (antes orm_mode = True)
 
 
 class NoticiaOut(NoticiaBase):
@@ -22,4 +45,6 @@ class NoticiaOut(NoticiaBase):
     carga: int
 
     class Config:
-        orm_mode = True
+        from_attributes = True
+
+

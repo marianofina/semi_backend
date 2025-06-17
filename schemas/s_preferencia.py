@@ -10,4 +10,10 @@ class PreferenciaMostrar(PreferenciaBase):
     id: int
 
     class Config:
-        orm_mode = True
+        from_attributes = True
+
+
+class PreferenciaView(BaseModel):
+    id: int
+    nombre: str
+    interesa: bool

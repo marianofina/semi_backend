@@ -1,6 +1,7 @@
 from sqlalchemy import Column, Integer, String, DateTime, ForeignKey, Text
 from datetime import datetime
 from database import Base
+from sqlalchemy.orm import relationship
 
 
 class Noticia(Base):
@@ -14,3 +15,6 @@ class Noticia(Base):
     portal_id = Column(Integer, ForeignKey("portales_noticia.id"))
     tematica_id = Column(Integer, ForeignKey("tematica_noticias.id"))
     autor = Column(String(100))
+
+    tematica = relationship("TematicaNoticia", back_populates="noticia")
+    portal = relationship("PortalNoticia", back_populates="noticias")

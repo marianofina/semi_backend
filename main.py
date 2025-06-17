@@ -6,7 +6,8 @@ from router import (r_usuarios,
                     r_portal,
                     r_tematica,
                     r_preferencia,
-                    r_port_bloq)
+                    r_port_bloq,
+                    test_text_transformer)
 
 app = FastAPI()
 
@@ -21,6 +22,7 @@ app.add_middleware(
 app.include_router(r_usuarios.router, prefix="/usuarios", tags=["Usuarios"])
 app.include_router(r_port_bloq.router, prefix="/protected/portales-bloq", tags=["Portales Bloqueados"])
 # app.include_router(r_admins.router, prefix="/admins", tags=["Admins"])
+app.include_router(test_text_transformer.router, prefix="/resumen", tags=["Resumen IA"])
 app.include_router(r_noticias.router, prefix="/noticias", tags=["Noticias"])
 app.include_router(r_interacciones.router, prefix="/protected/interacciones", tags=["Interacciones"])
 app.include_router(r_tematica.router, prefix="/tematicas", tags=["Temáticas"])

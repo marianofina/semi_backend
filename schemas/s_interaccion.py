@@ -4,5 +4,11 @@ from typing import Optional
 
 class InteraccionBase(BaseModel):
     noticia_id: int
-    utilidad: Optional[int]
-    resumen_claro: Optional[int]
+
+
+class InteraccionUtilidad(InteraccionBase):
+    utilidad: int
+
+
+class InteraccionResumen(InteraccionBase):
+    resumen_claro: int

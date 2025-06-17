@@ -6,7 +6,7 @@ from fastapi import HTTPException, Cookie
 # Configuración
 SECRET_KEY = "clave-secreta-super-segura"
 ALGORITHM = "HS256"
-ACCESS_TOKEN_EXPIRE_MINUTES = 60
+ACCESS_TOKEN_EXPIRE_MINUTES = 1440
 
 # Hashing
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")

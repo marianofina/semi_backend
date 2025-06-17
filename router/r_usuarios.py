@@ -1,9 +1,9 @@
 from fastapi import APIRouter, Depends, HTTPException, status, Response
 from jose import jwt
 from sqlalchemy.orm import Session
-from schemas.s_usuario import UsuarioCreate, UsuarioOut, Token, UsuarioBase
+from schemas.s_usuario import UsuarioCreate, UsuarioOut, Token, UsuarioBase, UsuarioActual
 from crud.c_usuario import crear_usuario, autenticar_usuario
-from auth import create_access_token
+from auth import create_access_token, obtener_usuario_desde_cookie
 from database import get_db
 import datetime
 from auth import SECRET_KEY, ALGORITHM
@@ -16,15 +16,12 @@ def register(usuario: UsuarioCreate, db: Session = Depends(get_db)):
     existente = crear_usuario(db, usuario)
     return existente
 
-"""
-@router.post("/login", response_model=Token)
-def login(form: UsuarioBase, db: Session = Depends(get_db)):
-    usuario = autenticar_usuario(db, form.username, form.password)
-    if not usuario:
+
+@router.get("/yo", response_model=UsuarioActual)
+def auth(user_id: int = Depends(obtener_usuario_desde_cookie)):
+    if not user_id:
         raise HTTPException(status_code=400, detail="Credenciales inválidas")
-    access_token = create_access_token(data={"sub": str(usuario.id)})
-    return {"access_token": access_token, "token_type": "bearer"}
-"""
+    return {'user_id': user_id}
 
 
 @router.post("/login")

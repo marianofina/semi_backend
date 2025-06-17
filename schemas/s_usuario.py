@@ -18,3 +18,7 @@ class UsuarioOut(UsuarioBase):
 class Token(BaseModel):
     access_token: str
     token_type: str
+
+
+class UsuarioActual(BaseModel):
+    user_id: int
