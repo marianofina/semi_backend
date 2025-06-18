@@ -10,7 +10,7 @@ router = APIRouter()
 
 
 @router.post("/", response_model=schemas.NoticiaBase)
-def crear_noticia(noticia: schemas.NoticiaCreate, db: Session = Depends(get_db)):
+def crear_noticia(noticia: schemas.NoticiaBase, db: Session = Depends(get_db)):
     return crud.crear_noticia(db, noticia)
 
 
@@ -27,7 +27,7 @@ def obtener_noticia(noticia_id: int, db: Session = Depends(get_db), usuario_id: 
     return db_noticia
 
 
-@router.get("/por-usuario", response_model=list[schemas.NoticiaView])
+@router.get("/por-usuario", response_model=list[schemas.NoticiaLista])
 def listar_noticias(db: Session = Depends(get_db), user_id: int = Depends(obtener_usuario_desde_cookie)):
     return crud.obtener_noticias_por_usuario(db, user_id)
 

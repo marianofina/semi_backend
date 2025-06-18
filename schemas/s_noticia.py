@@ -6,7 +6,6 @@ from datetime import datetime
 class NoticiaBase(BaseModel):
     titulo: str
     contenido: str
-    resumen: Optional[str]
     portal_id: int
     tematica_id: int
     autor: Optional[str]
@@ -15,14 +14,10 @@ class NoticiaBase(BaseModel):
         from_attributes = True
 
 
-class NoticiaCreate(NoticiaBase):
-    pass
-
-
-class NoticiaView(BaseModel):
+class NoticiaLista(BaseModel):
     id: int
     titulo: str
-    resumen: str
+    nivel_resumen: Optional[float]  # Puede venir NULL
     fecha_publicacion: datetime
     url_original: Optional[str]
     portal_id: int
@@ -34,9 +29,14 @@ class NoticiaView(BaseModel):
     fecha_leido: Optional[datetime]
     utilidad: Optional[int]
     resumen_claro: Optional[int]
+    contenido: str
 
     class Config:
         from_attributes = True  # Pydantic v2 (antes orm_mode = True)
+
+
+class NoticiaView(NoticiaLista):
+    resumen: Optional[str]
 
 
 class NoticiaOut(NoticiaBase):
