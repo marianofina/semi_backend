@@ -15,6 +15,6 @@ def crear_portal(db: Session, portal: PortalCreate):
     return db_portal
 
 
-def listar_portales(db: Session, skip: int = 0, limit: int = 10):
-    return db.query(PortalNoticia).order_by(PortalNoticia.id).offset(skip).limit(limit).all()
+def listar_portales(db: Session, skip: int = 0):
+    return db.query(PortalNoticia).order_by(PortalNoticia.id).offset(skip).all()
 

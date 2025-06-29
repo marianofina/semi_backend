@@ -14,5 +14,5 @@ def crear_portal(portal: schemas.PortalCreate, db: Session = Depends(get_db)):
 
 
 @router.get("/", response_model=List[schemas.PortalOut])
-def listar_portales(skip: int = 0, limit: int = 10, db: Session = Depends(get_db)):
-    return crud.listar_portales(db, skip, limit)
+def listar_portales(skip: int = 0, db: Session = Depends(get_db)):
+    return crud.listar_portales(db, skip)

@@ -11,8 +11,8 @@ def crear_tematica(db: Session, tematica: TematicaCreate):
     return nueva_tematica
 
 
-def listar_tematicas(db: Session, skip: int = 0, limit: int = 10):
-    return db.query(TematicaNoticia).order_by(TematicaNoticia.id).offset(skip).limit(limit).all()
+def listar_tematicas(db: Session, skip: int = 0):
+    return db.query(TematicaNoticia).order_by(TematicaNoticia.id).offset(skip).all()
 
 
 def obtener_tematica(db: Session, tematica_id: int):

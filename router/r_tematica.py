@@ -13,8 +13,8 @@ def crear_tematica(tematica: schemas.TematicaCreate, db: Session = Depends(get_d
 
 
 @router.get("/", response_model=list[schemas.Tematica])
-def listar_tematicas(skip: int = 0, limit: int = 10, db: Session = Depends(get_db)):
-    return crud.listar_tematicas(db, skip, limit)
+def listar_tematicas(skip: int = 0,  db: Session = Depends(get_db)):
+    return crud.listar_tematicas(db, skip)
 
 
 @router.get("/{tematica_id}", response_model=schemas.Tematica)

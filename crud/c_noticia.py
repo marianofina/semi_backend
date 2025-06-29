@@ -32,6 +32,7 @@ def obtener_noticia(db: Session, usuario_id: int, noticia_id: int):
         text("EXEC get_noticia_usuario @usuario_id = :usuario_id, @noticia_id = :noticia_id"),
         {"usuario_id": usuario_id, "noticia_id": noticia_id}
     ).first()
+    print(r)
     resultado = {
             "id": r[0],
             "titulo": r[1],
